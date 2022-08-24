@@ -32,6 +32,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ApiPaginatedOkResponseDecorator } from '../core/decorator/api-paginated-ok-response.decorator';
+import { ApiBearerTokenHeader } from '../core/decorator/api-bearer-token-header';
 
 @ApiTags('restaurant')
 @ApiExtraModels(Pagination, Restaurant, Rating)
@@ -50,11 +51,7 @@ export class RestaurantController {
   @ApiPaginatedOkResponseDecorator(Restaurant, {
     description: '레스토랑 Pagination 결과값',
   })
-  @ApiParam({
-    name: 'rid',
-    description: '레스토랑 ID',
-    example: '1952a209-7c26-4f50-bc65-086f6e64dbbd',
-  })
+  @ApiBearerTokenHeader()
   paginateRestaurants(
     @Query() paginationDto: PaginationDto,
   ): Pagination<Restaurant> {
@@ -75,6 +72,7 @@ export class RestaurantController {
     description: '레스토랑 ID',
     example: '1952a209-7c26-4f50-bc65-086f6e64dbbd',
   })
+  @ApiBearerTokenHeader()
   getRestaurant(@Param('rid') id: string): RestaurantDetail {
     const restaurant = this.restaurantService.getRestaurantById(id);
 
@@ -98,6 +96,7 @@ export class RestaurantController {
     description: '레스토랑 ID',
     example: '1952a209-7c26-4f50-bc65-086f6e64dbbd',
   })
+  @ApiBearerTokenHeader()
   paginateRestaurantRatings(
     @Param('rid') id: string,
     @Query() paginationDto: PaginationDto,
@@ -123,6 +122,7 @@ export class RestaurantController {
     description: '레스토랑 ID',
     example: '1952a209-7c26-4f50-bc65-086f6e64dbbd',
   })
+  @ApiBearerTokenHeader()
   postRestaurantRating(
     @Param('rid') id: string,
     @Request() req,

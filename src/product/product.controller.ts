@@ -23,6 +23,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ApiPaginatedOkResponseDecorator } from '../core/decorator/api-paginated-ok-response.decorator';
+import { ApiBearerTokenHeader } from '../core/decorator/api-bearer-token-header';
 
 @ApiTags('product')
 @Controller('product')

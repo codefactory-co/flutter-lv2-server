@@ -9,6 +9,46 @@ export enum RestaurantPriceRange {
   expensive = 'expensive',
 }
 
+export class RestaurantProduct extends BaseEntity {
+  constructor(params: RestaurantProduct) {
+    super(params);
+
+    this.name = params.name;
+    this.detail = params.detail;
+    this.imgUrl = params.imgUrl;
+    this.price = params.price;
+  }
+
+  @ApiProperty({
+    name: 'name',
+    description: '이름',
+    example: '마라맛 코팩 떡볶이',
+  })
+  name: string;
+
+  @Transform(({ value }) => `/img/${value}`)
+  @ApiProperty({
+    name: 'imgUrl',
+    description: '이미지 링크',
+    example: '/img/img.png',
+  })
+  imgUrl: string;
+
+  @ApiProperty({
+    name: 'detail',
+    description: '상품설명',
+    example: '서울에서 두번째로 맛있는 떡볶이집! 리뷰 이벤트 진행중~',
+  })
+  detail: string;
+
+  @ApiProperty({
+    name: 'price',
+    description: '가격',
+    example: 8000,
+  })
+  price: number;
+}
+
 export class Restaurant extends BaseEntity {
   constructor(params: Restaurant) {
     super(params);
@@ -42,6 +82,7 @@ export class Restaurant extends BaseEntity {
     name: 'tags',
     description: '레스토랑 태그들',
     example: ['신규', '세일중'],
+    type: String,
     isArray: true,
   })
   tags: string[];
@@ -101,6 +142,8 @@ export class RestaurantDetail extends Restaurant {
   @ApiProperty({
     name: 'products',
     description: '판매 상품들',
+    isArray: true,
+    type: RestaurantProduct,
   })
-  products: Product[];
+  products: RestaurantProduct[];
 }

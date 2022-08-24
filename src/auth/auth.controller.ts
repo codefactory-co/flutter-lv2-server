@@ -23,6 +23,10 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import {
+  ApiBasicTokenHeader,
+  ApiBearerTokenHeader,
+} from '../core/decorator/api-bearer-token-header';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -35,11 +39,7 @@ export class AuthController {
   @ApiOperation({
     summary: 'Login하기',
   })
-  @ApiHeader({
-    name: 'authorization',
-    description: 'Basic 토큰',
-    example: 'Basic xjvjiwsijzkxcjvoiasdjf',
-  })
+  @ApiBasicTokenHeader()
   @ApiOkResponse({
     description: 'Access Token과 Refresh Token',
     schema: {
@@ -71,11 +71,7 @@ export class AuthController {
   @ApiOperation({
     summary: 'Token Refresh하기',
   })
-  @ApiHeader({
-    name: 'authorization',
-    description: 'Bearer 토큰',
-    example: 'Bearer xjvjiwsijzkxcjvoiasdjf',
-  })
+  @ApiBearerTokenHeader()
   @ApiOkResponse({
     description: 'Access Token',
     schema: {

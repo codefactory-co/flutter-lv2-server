@@ -23,11 +23,13 @@ import { IBasketItem } from './entities/user.entity.interface';
 import { PatchMeBasketDto } from './dto/patch-me-basket.dto';
 import {
   ApiBody,
+  ApiHeader,
   ApiOkResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ApiBearerTokenHeader } from '../core/decorator/api-bearer-token-header';
 
 @ApiTags('user')
 @Controller('user')
@@ -43,6 +45,7 @@ export class UserController {
     description: '사용자 가져오기 성공',
     type: User,
   })
+  @ApiBearerTokenHeader()
   async getMe(@Request() req): Promise<User> {
     return this.userService.findById(req.user.id);
   }
@@ -55,7 +58,9 @@ export class UserController {
   @ApiOkResponse({
     description: '장바구니 가져오기 성공',
     type: BasketItemWithFullProductDto,
+    isArray: true,
   })
+  @ApiBearerTokenHeader()
   async getMeBasket(@Request() req): Promise<BasketItemWithFullProductDto[]> {
     return this.userService.getBasket(req.user.id);
   }
@@ -68,6 +73,7 @@ export class UserController {
   @ApiOkResponse({
     description: '장바구니 업데이트 성공',
     type: BasketItemWithFullProductDto,
+    isArray: true,
   })
   @ApiBody({
     type: PatchMeBasketDto,
