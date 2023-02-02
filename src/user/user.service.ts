@@ -20,7 +20,7 @@ export class UserService {
   }
 
   async findByUsername(username: string): Promise<User | undefined> {
-    return this.cacheService.users.find((user) => user.username);
+    return this.cacheService.users.find((user) => user.username === username);
   }
 
   async createUser({ username, password }: CreateUserDto) {

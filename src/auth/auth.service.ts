@@ -43,6 +43,10 @@ export class AuthService {
   async authenticate(username: string, password: string): Promise<User | null> {
     const user = await this.userService.findByUsername(username);
 
+    if (!user) {
+      return null;
+    }
+
     if (user.password !== password) {
       return null;
     }
