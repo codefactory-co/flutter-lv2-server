@@ -45,7 +45,7 @@ export class BearerTokenGuard implements CanActivate {
       throw new UnauthorizedException('잘못된 토큰입니다.');
     }
 
-    request.user = await this.userService.findByUsername(payload.sub);
+    request.user = await this.userService.findByUsername(payload.username);
     request.token = token;
     request.tokenType = payload.type;
 
