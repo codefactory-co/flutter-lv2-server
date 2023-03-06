@@ -82,6 +82,8 @@ export class UserController {
     @Request() req,
     @Body() body: PatchMeBasketDto,
   ): Promise<BasketItemWithFullProductDto[]> {
+    console.log(req.body);
+    console.log(body);
     return this.userService.addToBasket(req.user.id, body.basket);
   }
 }
