@@ -1,5 +1,6 @@
 import { BasketItemDto } from '../../user/dto/basket-item.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsArray, IsNumber, IsString, ValidateNested } from 'class-validator';
 
 export class CreateOrderDto {
   @ApiProperty({

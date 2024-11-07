@@ -9,8 +9,6 @@ import { ResponseDelayInterceptor } from './core/interceptor/response-delay.inte
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  app.useGlobalInterceptors(new ResponseDelayInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('코드팩토리 API')
@@ -20,6 +18,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalInterceptors(new ResponseDelayInterceptor());
 
   const document = SwaggerModule.createDocument(app, config);
 

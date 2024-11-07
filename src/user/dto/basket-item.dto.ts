@@ -1,10 +1,9 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsNumber, IsString, ValidateNested } from 'class-validator';
 import { Product } from '../../product/entities/product.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { OrderProduct } from '../../order/entities/order-product-entity';
 
 export class BasketItemDto {
-  @IsString()
   @ApiProperty({
     name: 'productId',
     description: '상품 ID',
