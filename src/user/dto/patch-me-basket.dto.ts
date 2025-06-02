@@ -33,6 +33,7 @@ export class PatchMeBasketDto {
     type: [PatchMeBasketDtoBasket],
   })
   @IsArray()
+  @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(()=> PatchMeBasketDtoBasket)
   basket: PatchMeBasketDtoBasket[];
