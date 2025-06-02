@@ -74,6 +74,6 @@ export class UserService {
     return products.map((dto) => ({
       product: allProducts.find((product) => product.id === dto.productId),
       count: dto.count,
-    }));
+    })).filter(item => item.count > 0);
   }
 }
